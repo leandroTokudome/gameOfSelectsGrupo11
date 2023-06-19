@@ -1,5 +1,5 @@
 CREATE DATABASE	MagicRuin;
-use MagicRuin;
+USE MagicRuin;
 
 CREATE TABLE Raca (
 idRaca INT PRIMARY KEY AUTO_INCREMENT,
@@ -15,7 +15,7 @@ nivel char(1)
 CREATE TABLE Familia(
 idFamilia INT PRIMARY KEY AUTO_INCREMENT,
 nome VARCHAR(45),
-riqueza INT,
+moedasDeOuro INT,
 lema VARCHAR(150),
 fkClassificacao INT,
 FOREIGN KEY(fkClassificacao) REFERENCES Classificacao(idClassificacao)
@@ -23,8 +23,8 @@ FOREIGN KEY(fkClassificacao) REFERENCES Classificacao(idClassificacao)
 
 CREATE TABLE Pais(
 idPais INT PRIMARY KEY AUTO_INCREMENT,
-nome VARCHAR(45),
-datNasc DATE,
+nomePai VARCHAR(45),
+anoNasc INT,
 fkFamilia INT,
 FOREIGN KEY(fkFamilia) REFERENCES Familia(idFamilia),
 fkRaca INT,
@@ -63,7 +63,7 @@ PRIMARY KEY (fkReligiao, fkDeus)
 CREATE TABLE Pessoa(
 idPessoa INT PRIMARY KEY AUTO_INCREMENT,
 nome VARCHAR(45),
-anoNasc CHAR(3),
+anoNasc INT,
 cidadeNatal VARCHAR(45),
 classeSocial VARCHAR(45),
 sexo CHAR(1),
@@ -140,7 +140,7 @@ PRIMARY KEY (fkRuina, fkRecompensa)
 );
 
 CREATE TABLE RuinaPessoa (
-anoEx CHAR(3),
+dataEx VARCHAR(10),
 fkPessoa INT,
 FOREIGN KEY(fkPessoa) REFERENCES Pessoa(idPessoa),
 fkRuina INT,
@@ -213,15 +213,35 @@ INSERT INTO Familia VALUES (NULL, 'Kirmizi', 5000, 'Estou mais sozinho que golei
                            (NULL, 'Mor', 675000, 'Talento e magia não se compram na esquina', 2),
                            (NULL, 'Yesil', 225000, 'Unidos na simplicidade, guiados pelo amor e humildade.', 3);
 
-INSERT INTO Pais VALUES (NULL, '', '', '', , );
+INSERT INTO Pais VALUES
+	(NULL, 'Ahmet Kocaman', 370, 4, 17),
+	(NULL, 'Mehmet Turkmen', 371, 7, 5),
+	(NULL, 'Ali Guler', 358, 2, 26),
+	(NULL, 'Mustafa Bakir', 354, 8, 9),
+	(NULL, 'Yusuf Aygun', 361, 6, 3),
+	(NULL, 'Emre Simsek', 357, 3, 20),
+	(NULL, 'Can Ozkan', 366, 1, 12),
+	(NULL, 'Burak Aktas', 360, 5, 24),
+	(NULL, 'Serkan Ozgur', 353, 7, 7),
+	(NULL, 'Cem Tekin', 367, 2, 2),
+	(NULL, 'Eren Ekinci', 355, 4, 14),
+	(NULL, 'Kerem Aslan', 358, 3, 22),
+	(NULL, 'Baris İpek', 359, 6, 8),
+	(NULL, 'Orhan Sensoy', 364, 8, 19),
+	(NULL, 'Omer Gunduz', 363, 1, 11),
+	(NULL, 'Selim Seker', 351, 5, 25),
+	(NULL, 'Hakan Ozsoy', 365, 2, 16),
+	(NULL, 'İbrahim Aslan', 356, 7, 4),
+	(NULL, 'Tolga Erdogan', 368, 4, 21),
+	(NULL, 'Onur Cetin', 362, 3, 6);
 
 INSERT INTO Religiao VALUES
   (NULL, 'Ilmalik', 'A religião de Ilmalik baseia-se na adoração dos elementais da natureza, considerando-os como deuses supremos que controlam todos os elementos do mundo.'),
   (NULL, 'Isiksi', 'A religião de Isiksi é centrada no culto da Luz Divina, uma entidade transcendental de grande energia. Eles buscam a purificação da alma através do conhecimento e esperam o grande retorno da Luz Divina. Isiksi é a religião oposta à Karanlik'),
   (NULL, 'Karanlik', 'A religião de Karanlik adora as trevas e a escuridão como manifestações sagradas. Karanliki busca a paz e a verdade no vazio da escuridão do mundo.Karanlik é a religião oposta à Isiksi'),
   (NULL, 'Ruh Yolculari', 'A religião de Ruh Yolculari se baseia na reencarnação de todas as criaturas vivas no mundo. Eles buscam a imortalidade da alma e a sabedoria infinita através das infinitas reencarnações de um ser.'),
-  (NULL, 'Sonsuz Uyanis', 'A religião de Sonsuz Uyanis é baseada na unificação física dos seres, tanto divinos quanto mortais, acreditando na evolução do mundo através de seus metamorfos, que são usados em batalhas, questões sociais, questões políticas, etc.') ;
-  (NULL, 'Yildiz', 'A religião de Yildiz é uma religião extremista e relativamente nova no mundo de Magic Ruin. Eles adoram os demônios e monstros do submundo, acreditando e sustentando à espera de uma grande era dominada pelo mau e pelos monstros.')
+  (NULL, 'Sonsuz Uyanis', 'A religião de Sonsuz Uyanis é baseada na unificação física dos seres, tanto divinos quanto mortais, acreditando na evolução do mundo através de seus metamorfos, que são usados em batalhas, questões sociais, questões políticas, etc.'),
+  (NULL, 'Yildiz', 'A religião de Yildiz é uma religião extremista e relativamente nova no mundo de Magic Ruin. Eles adoram os demônios e monstros do submundo, acreditando e sustentando à espera de uma grande era dominada pelo mau e pelos monstros.');
 
 INSERT INTO Deus VALUES
   (NULL, 'Ayse', 'Fogo', 'Gokada'),
@@ -241,9 +261,9 @@ INSERT INTO Mantra VALUES
   (NULL, 'Mantra das Trevas', 'As sombras nos iluminam e ofuscam a dor de nosso mundo.', 3),
   (NULL, 'Mantra da Reencarnação', 'Amanhã seremos mais do que somos hoje.', 4),
   (NULL, 'Mantra da Evolução', 'Juntos somos mais fortes. A união e a evolução caminha lado a lado.', 5),
-  (NULL, 'Mantra da Destruição', 'Aguardaremos à ascenção da nova era com muita paciência e fome.', 6)
+  (NULL, 'Mantra da Destruição', 'Aguardaremos à ascenção da nova era com muita paciência e fome.', 6);
 
-INSERT INTO ReligiaoDeus
+INSERT INTO ReligiaoDeus VALUES
 	(1, 1),
 	(1, 2),
 	(1, 3),
@@ -269,38 +289,68 @@ INSERT INTO ReligiaoDeus
 	(6, 10);
 
 INSERT INTO Pessoa VALUES
-	(NULL, 'Sir Jorge', '373', 'Gozdesehir', 'Burguês', 'M', 6, 1, 8, NULL),
-	(NULL, 'Melike Ece', '406', 'Golkasabasi', 'Quase Burguês', 'F', 3, 2, 21, 5),
-	(NULL, 'Leandro Jooj', '407', 'Gumuskent', 'Quase Plebeu', 'M', 2, 5, 7, 3),
-	(NULL, 'Arthur Brabo', '400', 'Safaksehir', 'Plebeu', 'M', 1, 1, 15, 1),
-	(NULL, 'Bia Bala', '408', 'Gozdesehir', 'Média-Alta', 'F', 8, 3, 23, 2),
-	(NULL, 'Vitor Chefe', '410', 'Gumuskent', 'Plebeu', 'M', 1, 6, 5, 6),
-	(NULL, 'Gabriel Afiado', '411', 'Safaksehir', 'Média', 'M', 4, 4, 26, 4),
-	(NULL, 'Luanna Chave', '403', 'Ayisigi Kasabasi', 'Quase Burguês', 'F', 7, 2, 12, NULL),
-	(NULL, 'Ayse Elif', '390', 'Nehirsehir', 'Burguês', 'F', 6, 1, 10, 2),
-	(NULL, 'Cemal Serdar', '388', 'Umutkent', 'Quase Plebeu', 'M', 2, 5, 3, 6),
-	(NULL, 'Leyla Gunes', '391', 'Isildaksehir', 'Média-Alta', 'F', 8, 3, 19, 1),
-	(NULL, 'Mehmet Can', '390', 'Nehirsehir', 'Plebeu', 'M', 1, 6, 17, 4),
-	(NULL, 'Aysenur Deniz', '392', 'Denizkoy', 'Média', 'M', 5, 4, 6, 3),
-	(NULL, 'Emre Cihan', '383', 'Dagkoy', 'Burguês', 'F', 6, 1, 25, 5),
-	(NULL, 'Zeynep Ela', '401', 'Ayisigi Kasabasi', 'Quase Burguês', 'F', 3, 2, 9, NULL),
-	(NULL, 'Mustafa Kerem', '410', 'Ipeksehir', 'Plebeu', 'M', 1, 6, 2, 1),
-	(NULL, 'Melis Defne', '404', 'Denizkoy', 'Média', 'F', 4, 4, 20, 6),
-	(NULL, 'Omer Baris', '399', 'Ruzgarsehir', 'Média-Alta', 'M', 8, 3, 16, 4),
-	(NULL, 'Nazli Pinar', '394', 'Golkasabasi', 'Quase Plebeu', 'F', 2, 5, 11, 3),
-	(NULL, 'Ahmet Emir', '398', 'Ruzgarsehir', 'Quase Burguês', 'M', 7, 2, 27, NULL),
-	(NULL, 'Ipek Zehra', '401', 'Yildirimkent', 'Burguês', 'M', 6, 1, 1, 5),
-	(NULL, 'Kaan Arda', '411', 'Yildizkoy', 'Média-Alta', 'M', 8, 3, 8, 2),
-	(NULL, 'Yasemin Sedef', '388', 'Ipeksehir', 'Plebeu', 'F', 1, 6, 13, 1),
-	(NULL, 'Volkan sahin', '399', 'Umutkent', 'Quase Plebeu', 'M', 2, 5, 18, 6),
-	(NULL, 'Elif Zehra', '410', 'Huzursehir', 'Média', 'F', 5, 4, 4, 3),
-	(NULL, 'Burak Taylan', '406', 'Yildirimkent', 'Burguês', 'M', 6, 1, 22, 4),
-	(NULL, 'Dilara Hazal', '394', 'Isildaksehir', 'Quase Burguês', 'F', 3, 2, 14, NULL),
-	(NULL, 'Serkan Deniz', '397', 'Yildizkoy', 'Quase Plebeu', 'M', 2, 5, 7, 5),
-	(NULL, 'Aylin Selen', '378', 'Dagkoy', 'Plebeu', 'F', 1, 6, 26, 2),
-	(NULL, 'Ibrahim Arif', '344', 'Huzursehir', 'Média-Alta', 'M', 8, 3, 5, 1);
+	(1, 'Sir Jorge', 373, 'Gozdesehir', 'Burguês', 'M', 6, 1, 8, 1),
+	(2, 'Melike Simsek', 406, 'Golkasabasi', 'Quase Burguês', 'F', 3, 2, 21, 5),
+	(3, 'Leandro Jooj', 407, 'Gumuskent', 'Quase Plebeu', 'M', 2, 5, 7, 3),
+	(4, 'Arthur Brabo', 400, 'Safaksehir', 'Plebeu', 'M', 1, 1, 15, 1),
+	(5, 'Bia Bala', 408, 'Gozdesehir', 'Média-Alta', 'F', 8, 3, 23, 2),
+	(6, 'Vitor Chefe', 410, 'Gumuskent', 'Plebeu', 'M', 1, 6, 5, 6),
+	(7, 'Gabriel Afiado', 411, 'Safaksehir', 'Média', 'M', 4, 4, 26, 4),
+	(8, 'Luanna Chave', 403, 'Ayisigi Kasabasi', 'Quase Burguês', 'F', 7, 2, 12, 1),
+	(9, 'Ayse Turkmen', 390, 'Nehirsehir', 'Burguês', 'F', 6, 1, 10, 2),
+	(10, 'Cemal Cetin', 388, 'Umutkent', 'Quase Plebeu', 'M', 2, 5, 3, 6),
+	(11, 'Leyla Aslan', 391, 'Isildaksehir', 'Média-Alta', 'F', 8, 3, 19, 1),
+	(12, 'Mehmet Ozkan', 390, 'Nehirsehir', 'Plebeu', 'M', 1, 6, 17, 4),
+	(13, 'Aysenur Gunduz', 392, 'Denizkoy', 'Média', 'M', 5, 4, 6, 3),
+	(14, 'Emre Ozgur', 383, 'Dagkoy', 'Burguês', 'F', 6, 1, 25, 5),
+	(15, 'Zeynep Kocaman', 401, 'Ayisigi Kasabasi', 'Quase Burguês', 'F', 3, 2, 9, 1),
+	(16, 'Mustafa Aslan', 410, 'Ipeksehir', 'Plebeu', 'M', 1, 6, 2, 1),
+	(17, 'Melis İpek', 404, 'Denizkoy', 'Média', 'F', 4, 4, 20, 6),
+	(18, 'Omer Bakir', 399, 'Ruzgarsehir', 'Média-Alta', 'M', 8, 3, 16, 4),
+	(19, 'Nazli Pinar', 394, 'Golkasabasi', 'Quase Plebeu', 'F', 2, 5, 11, 3),
+	(20, 'Ahmet Seker', 398, 'Ruzgarsehir', 'Quase Burguês', 'M', 7, 2, 27, 1),
+	(21, 'Ipek Ozkan', 401, 'Yildirimkent', 'Burguês', 'M', 6, 1, 1, 5),
+	(22, 'Kaan Turkmen', 411, 'Yildizkoy', 'Média-Alta', 'M', 8, 3, 8, 2),
+	(23, 'Yasemin Cetin', 388, 'Ipeksehir', 'Plebeu', 'F', 1, 6, 13, 1),
+	(24, 'Volkan Aslan', 399, 'Umutkent', 'Quase Plebeu', 'M', 2, 5, 18, 6),
+	(25, 'Elif Gunduz', 410, 'Huzursehir', 'Média', 'F', 5, 4, 4, 3),
+	(26, 'Burak Ozgur', 406, 'Yildirimkent', 'Burguês', 'M', 6, 1, 22, 4),
+	(27, 'Dilara Kocaman', 394, 'Isildaksehir', 'Quase Burguês', 'F', 3, 2, 14, 1),
+	(28, 'Serkan Aslan', 397, 'Yildizkoy', 'Quase Plebeu', 'M', 2, 5, 7, 5),
+	(29, 'Aylin İpek', 378, 'Dagkoy', 'Plebeu', 'F', 1, 6, 26, 2),
+	(30, 'Ibrahim Bakir', 344, 'Huzursehir', 'Média-Alta', 'M', 8, 3, 5, 1);
 
-INSERT INTO PaisPessoas VALUES (NULL, , );
+INSERT INTO PaisPessoas VALUES
+	(NULL, 14, 1),
+	(NULL, 6, 2),
+	(NULL, 19, 3),
+	(NULL, 8, 4),
+	(NULL, 3, 5),
+	(NULL, 11, 6),
+	(NULL, 17, 7),
+	(NULL, 5, 8),
+	(NULL, 2, 9),
+	(NULL, 20, 10),
+	(NULL, 12, 11),
+	(NULL, 7, 12),
+	(NULL, 15, 13),
+	(NULL, 9, 14),
+	(NULL, 1, 15),
+	(NULL, 18, 16),
+	(NULL, 13, 17),
+	(NULL, 4, 18),
+	(NULL, 10, 19),
+	(NULL, 16, 20),
+	(NULL, 7, 21),
+	(NULL, 2, 22),
+	(NULL, 20, 23),
+	(NULL, 12, 24),
+	(NULL, 15, 25),
+	(NULL, 9, 26),
+	(NULL, 1, 27),
+	(NULL, 18, 28),
+	(NULL, 13, 29),
+	(NULL, 4, 30);
 
 INSERT INTO Territorio VALUES
 	(NULL, 'Sehirsayir', 532, 1),
@@ -385,7 +435,7 @@ INSERT INTO MonstroRuina VALUES
 	(13, 2, 6),
 	(11, 3, 7),
 	(2, 4, 4),
-	(5, 5, ),
+	(5, 5, 7),
 	(19, 6, 5),
 	(23, 7, 6),
 	(22, 8, 6),
@@ -528,36 +578,36 @@ INSERT INTO RuinaRecompensa VALUES
 	(24, 6);
 
 INSERT INTO RuinaPessoa VALUES
-	('445', 1, 2),
-	('432', 6, 5),
-	('429', 7, 5),
-	('420', 8, 6),
-	('433', 1, 1),
-	('430', 9, 6),
-	('441', 4, 7),
-	('440', 10, 7),
-	('442', 11, 8),
-	('430', 12, 8),
-	('412', 13, 9),
-	('424', 2, 9),
-	('430', 4, 10),
-	('433', 14, 11),
-	('447', 15, 12),
-	('440', 2, 13),
-	('439', 16, 13),
-	('430', 5, 14),
-	('422', 17, 14),
-	('426', 18, 15),
-	('428', 5, 16),
-	('433', 19, 17),
-	('431', 3, 18),
-	('419', 3, 19),
-	('437', 20, 20),
-	('442', 21, 21),
-	('437', 22, 22),
-	('434', 23, 23),
-	('430', 24, 24),
-	('420', 25, 24),
+	('445-4-17', 1, 2),
+	('432-9-3', 6, 5),
+	('429-3-29', 7, 5),
+	('420-8-12', 8, 6),
+	('433-1-6', 1, 1),
+	('430-12-25', 9, 6),
+	('441-7-19', 4, 7),
+	('440-2-8', 10, 7),
+	('442-11-31', 11, 8),
+	('430-6-14', 12, 8),
+	('412-10-2', 13, 9),
+	('424-5-27', 2, 9),
+	('430-1-10', 4, 10),
+	('433-12-21', 14, 11),
+	('447-8-5', 15, 12),
+	('440-4-30', 2, 13),
+	('439-2-16', 16, 13),
+	('430-9-1', 5, 14),
+	('422-11-24', 17, 14),
+	('426-6-9', 18, 15),
+	('428-3-28', 5, 16),
+	('433-7-15', 19, 17),
+	('431-5-7', 3, 18),
+	('419-10-26', 3, 19),
+	('437-1-11', 20, 20),
+	('442-12-4', 21, 21),
+	('437-8-20', 22, 22),
+	('434-3-13', 23, 23),
+	('430-6-22', 24, 24),
+	('420-9-18', 25, 24);
 
 INSERT INTO Grimorio VALUES
 	(NULL, 'Grimório das Sombras', 1),
